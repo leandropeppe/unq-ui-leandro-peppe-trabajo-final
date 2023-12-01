@@ -1,0 +1,26 @@
+
+.fila {
+    background-color: white;
+    display: flex;
+  }
+  
+  .celda {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #000;
+  }
+  
+  .ocupada {
+    background-color: #f71111; /* Color de fondo para celdas ocupadas */
+  }
+
+/* Tablero.css */
+.celda-previa {
+  background-color: rgba(0, 128, 0, 0.5); /* Verde claro con transparencia */
+  width: 100%;
+  height: 100%;
+}
+
+
+
+  
