@@ -15,7 +15,6 @@ const MenuConfiguracion = ({ jugador, jugador2, modoJuego, configurarBarcos }) =
           todosBarcosColocados
         } = useConfiguracion()
   
-  
 
   return (
     <div>
