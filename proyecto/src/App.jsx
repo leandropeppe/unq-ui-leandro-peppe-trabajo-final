@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Menu from './components/Menu';
-import Tablero from './components/Tablero';
 import './App.css';
+import MenuConfiguracion from './components/MenuConfiguracion';
 
 const App = () => {
   const [opcionSeleccionada, setOpcionSeleccionada] = useState(null);
@@ -28,7 +28,7 @@ const App = () => {
         <Menu onSeleccion={manejarSeleccion} />
       ) : (
         <div className='playersContainer'>
-          <Tablero
+          <MenuConfiguracion
             jugador={nombreJugador}
             jugador2={nombreJugador2}
             modoJuego={opcionSeleccionada}
