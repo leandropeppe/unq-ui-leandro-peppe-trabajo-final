@@ -27,8 +27,23 @@
   height: 100%;
 }
 
-.buttons {
+
+.configButtons {
+  display: flex;
+  flex-direction: row;
   align-items: center;
+  justify-content: space-evenly;
 }
 
+.barcosButtons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.button {
+  background-color: #5c5252;
+  color: #ffffff;
+}
   

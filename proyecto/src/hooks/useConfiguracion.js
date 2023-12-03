@@ -5,6 +5,10 @@ export const useConfiguracion = () => {
   const [tablero, setTablero] = useState(() =>
     Array(10).fill(null).map(() => Array(10).fill(null))
   );
+  const [tableroComputadora, setTableroComputadora] = useState(() =>
+    Array(10).fill(null).map(() => Array(10).fill(null))
+  );
+  
   const [barcos, setBarcos] = useState({
     portaaviones: { longitud: 5, disponible: true },
     crucero: { longitud: 4, disponible: true },
@@ -14,7 +18,8 @@ export const useConfiguracion = () => {
   const [barcoSeleccionado, setBarcoSeleccionado] = useState(null);
   const [orientacionVertical, setOrientacionVertical] = useState(false);
   const [celdasPrevias, setCeldasPrevias] = useState([]);
-  const [todosBarcosColocados, setTodosBarcosColocados] = useState(false);
+  const [configuracionCompleta, setConfiguracionCompleta] = useState(false);
+  
 
 
   const verificarColocacionBarco = (fila, columna, longitud) => {
@@ -61,6 +66,7 @@ export const useConfiguracion = () => {
     });
     setBarcoSeleccionado(null);
     setCeldasPrevias([]);
+    setConfiguracionCompleta(false)
   };
 
   const cambiarOrientacion = () => {
@@ -97,7 +103,7 @@ export const useConfiguracion = () => {
     if (barcoSeleccionado) {
       const tipoBarco = barcoSeleccionado;
       const longitud = barcos[tipoBarco].longitud;
-
+  
       // Verificar si es posible colocar el barco en la posición seleccionada
       if (verificarColocacionBarco(fila, columna, longitud)) {
         const nuevoTablero = tablero.map((filaTablero, indexFila) => {
@@ -111,28 +117,40 @@ export const useConfiguracion = () => {
           }
           return filaTablero;
         });
-
+  
         setTablero(nuevoTablero);
-        setBarcos((prevBarcos) => ({
-          ...prevBarcos,
-          [tipoBarco]: { ...prevBarcos[tipoBarco], disponible: false },
-        }));
+        setBarcos((prevBarcos) => {
+          const updatedBarcos = {
+            ...prevBarcos,
+            [tipoBarco]: { ...prevBarcos[tipoBarco], disponible: false },
+          };
+  
+          // Verificar si todos los barcos han sido colocados
+          if (todosLosBarcosColocados(updatedBarcos)) {
+            setConfiguracionCompleta(true);
+          }
+  
+          return updatedBarcos;
+        });
+  
         setBarcoSeleccionado(null);
         setCeldasPrevias([]);
-        verificarTodosBarcosColocados();
       } else {
         alert('No se puede colocar el barco en esa posición. Elija otra posición.');
       }
     }
   };
-
-  const verificarTodosBarcosColocados = () => {
-    const barcosColocados = Object.values(barcos).every(barco => !barco.disponible);
-    setTodosBarcosColocados(barcosColocados);
+  
+  const todosLosBarcosColocados = (barcos) => {
+    // Verificar si todos los barcos han sido colocados
+    return Object.values(barcos).every(barco => !barco.disponible);
   };
+  
 
-  return {  tablero, barcos, barcoSeleccionado, celdasPrevias,
+  
+
+  return {  tablero, barcos, barcoSeleccionado, celdasPrevias,configuracionCompleta,tableroComputadora,
             reiniciarColocacionBarcos,cambiarOrientacion, 
-            seleccionarBarco, actualizarCeldasPrevias, colocarBarco, todosBarcosColocados
+            seleccionarBarco, actualizarCeldasPrevias, colocarBarco
           }
 }

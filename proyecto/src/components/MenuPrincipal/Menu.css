@@ -1,0 +1,15 @@
+.buttonSeleccionContainer {
+    display: flex;
+    gap: 20px; /* Ajusta el espacio entre los tableros según tus preferencias */
+  }
+
+  .label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .buttonStart {
+    margin-top: 1rem;
+  }
+

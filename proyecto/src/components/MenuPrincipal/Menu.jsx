@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './Menu.css'
 
 const Menu = ({ onSeleccion }) => {
   const [nombreJugador, setNombreJugador] = useState('');
@@ -26,22 +27,24 @@ const Menu = ({ onSeleccion }) => {
   return (
     <div className='menu'>
       <h1>Batalla Naval</h1>
-      <p>Seleccione contra quién quiere jugar:</p>
-      <div>
+      <h4>Seleccione contra quién quiere jugar:</h4>
+      <div className='buttonSeleccionContainer '>
         <button onClick={() => setOpcionSeleccionada('pc')}>Jugar contra la PC</button>
         <button onClick={() => setOpcionSeleccionada('jugador2')}>Jugar contra Jugador 2</button>
       </div>
-      <label>
-        Ingrese su nombre:
-        <input type='text' value={nombreJugador} onChange={manejarCambioNombre} />
-      </label>
-      {opcionSeleccionada === 'jugador2' && (
-        <label>
-          Ingrese el nombre del Jugador 2:
-          <input type='text' value={nombreJugador2} onChange={manejarCambioNombreJugador2} />
+      <div className='inputs'>
+        <label className='label'>
+          <h4>Ingrese su nombre:</h4>
+          <input type='text' value={nombreJugador} onChange={manejarCambioNombre} />
         </label>
-      )}
-      <button onClick={comenzarJuego}>Comenzar Juego</button>
+        {opcionSeleccionada === 'jugador2' && (
+          <label className='label'>
+            <h4>Ingrese el nombre del Jugador 2:</h4>
+            <input type='text' value={nombreJugador2} onChange={manejarCambioNombreJugador2} />
+          </label>
+        )}
+      </div>
+      <button className='buttonStart' onClick={comenzarJuego}>Comenzar Juego</button>
     </div>
   );
 };

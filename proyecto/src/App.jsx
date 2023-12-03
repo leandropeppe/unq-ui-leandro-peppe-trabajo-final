@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import Menu from './components/Menu';
+import Menu from './components/MenuPrincipal/Menu.jsx';
 import './App.css';
-import MenuConfiguracion from './components/MenuConfiguracion';
+import MenuConfiguracion from './components/MenuConfiguracion/MenuConfiguracion';
 
 const App = () => {
   const [opcionSeleccionada, setOpcionSeleccionada] = useState(null);

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Barco from './Barco';
+import Barco from './MenuConfiguracion/Barco';
 import './Tablero.css'
 const Tablero = ({ tablero, configurarBarcos, colocarBarco, actualizarCeldasPrevias, barcoSeleccionado, celdasPrevias }) => {
   

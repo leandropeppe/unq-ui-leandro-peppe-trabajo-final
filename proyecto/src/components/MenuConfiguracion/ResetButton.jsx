@@ -1,9 +1,10 @@
 import React from 'react';
+import './MenuConfiguracion.css';
 
 
 const ResetButton = ({onClick}) => {
     return (
-        <button onClick={onClick}>Reiniciar Colocación</button>
+        <button className='button' onClick={onClick}>Reiniciar Colocación</button>
     );
 };
 
