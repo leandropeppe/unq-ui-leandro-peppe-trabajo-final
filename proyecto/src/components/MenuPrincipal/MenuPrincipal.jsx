@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Menu.css'
+import './MenuPrincipal.css'
 
 const MenuPrincipal = ({ onSeleccion }) => {
   const [nombreJugador, setNombreJugador] = useState('');

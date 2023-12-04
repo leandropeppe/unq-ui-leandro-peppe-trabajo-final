@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import MenuPrincipal from './components/MenuPrincipal/MenuPrincipal.jsx';
-import './App.css';
 import MenuConfiguracion from './components/MenuConfiguracion/MenuConfiguracion';
 
 const App = () => {
