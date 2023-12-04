@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './Menu.css'
 
-const Menu = ({ onSeleccion }) => {
+const MenuPrincipal = ({ onSeleccion }) => {
   const [nombreJugador, setNombreJugador] = useState('');
   const [nombreJugador2, setNombreJugador2] = useState(''); 
   const [opcionSeleccionada, setOpcionSeleccionada] = useState(null);
@@ -29,8 +29,8 @@ const Menu = ({ onSeleccion }) => {
       <h1>Batalla Naval</h1>
       <h4>Seleccione contra quién quiere jugar:</h4>
       <div className='buttonSeleccionContainer '>
-        <button onClick={() => setOpcionSeleccionada('pc')}>Jugar contra la PC</button>
-        <button onClick={() => setOpcionSeleccionada('jugador2')}>Jugar contra Jugador 2</button>
+        <button className='button' onClick={() => setOpcionSeleccionada('pc')}>Jugar contra la PC</button>
+        <button className='button' onClick={() => setOpcionSeleccionada('jugador2')}>Jugar contra Jugador 2</button>
       </div>
       <div className='inputs'>
         <label className='label'>
@@ -44,9 +44,9 @@ const Menu = ({ onSeleccion }) => {
           </label>
         )}
       </div>
-      <button className='buttonStart' onClick={comenzarJuego}>Comenzar Juego</button>
+      <button className='button' onClick={comenzarJuego}>Comenzar Juego</button>
     </div>
   );
 };
 
-export default Menu;
+export default MenuPrincipal;

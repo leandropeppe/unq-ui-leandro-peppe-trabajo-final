@@ -1,6 +1,13 @@
 
+.tablero {
+  display: flex;
+  flex-direction: column; /* Alinea los elementos verticalmente */
+  justify-content: center; /* Centra en el eje vertical */
+  align-items: center; /* Centra en el eje horizontal */
+}
+
 .fila {
-    background-color: rgb(255, 255, 255);
+    background-color: rgb(252 212 102);
     display: flex;
   }
   
@@ -12,15 +19,15 @@
     border-radius: 5px;
     width: 30px;
     height: 30px;
-    border: 1px solid #000;
     background-color: rgb(146, 218, 247);
+    flex: 1;
+    border: 1px solid rgb(0, 0, 0); 
   }
   
   .ocupada {
     background-color: #494444; /* Color de fondo para celdas ocupadas */
   }
 
-/* Tablero.css */
 .celda-previa {
   background-color: rgba(0, 128, 0, 0.5); /* Verde claro con transparencia */
   width: 100%;
@@ -37,13 +44,22 @@
 
 .barcosButtons {
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-evenly;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .button {
-  background-color: #5c5252;
-  color: #ffffff;
+  margin: 5px; 
 }
-  
+
+.button:disabled {
+  background-color: lightgray; /* O el color que desees para indicar que está deshabilitado */
+  cursor: not-allowed; /* Cambia el cursor cuando está deshabilitado */
+  /* Otros estilos según sea necesario cuando está deshabilitado */
+}
+
+@media (max-width: 600px) {
+  .button {
+    flex-basis: 100%; /* Ocupa el 100% del ancho en pantallas más pequeñas */
+  }
+}

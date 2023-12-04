@@ -1,8 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Barco from './MenuConfiguracion/Barco';
-import './Tablero.css'
-const Tablero = ({ tablero, configurarBarcos, colocarBarco, actualizarCeldasPrevias, barcoSeleccionado, celdasPrevias }) => {
-  
+
+const Tablero = ({ tablero, configurarBarcos, colocarBarco, actualizarCeldasPrevias, barcoSeleccionado, celdasPrevias, permitirAtaque, onAtaque }) => {
+
+  const handleClick = (indexFila, indexColumna) => {
+    if (configurarBarcos) {
+      // Lógica para configurar barcos
+      colocarBarco(indexFila, indexColumna);
+      actualizarCeldasPrevias(indexFila, indexColumna);
+    } else if (permitirAtaque) {
+      // Lógica para manejar ataques
+      onAtaque(indexFila, indexColumna);
+    }
+  };
+
   return (
     <div className='tablero'>
       {tablero.map((fila, indexFila) => (
@@ -11,7 +22,7 @@ const Tablero = ({ tablero, configurarBarcos, colocarBarco, actualizarCeldasPrev
             <div
               key={indexColumna}
               className={`celda ${celda === 'B' ? 'ocupada' : ''}`}
-              onClick={() => configurarBarcos && colocarBarco(indexFila, indexColumna)}
+              onClick={() => handleClick(indexFila, indexColumna)}
               onMouseOver={() => configurarBarcos && actualizarCeldasPrevias(indexFila, indexColumna)}
             >
               {celda === 'B' && <Barco key={`${indexFila}-${indexColumna}`} />}
@@ -27,4 +38,5 @@ const Tablero = ({ tablero, configurarBarcos, colocarBarco, actualizarCeldasPrev
     </div>
   );
 };
+
 export default Tablero;

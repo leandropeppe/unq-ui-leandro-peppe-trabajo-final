@@ -1,24 +1,20 @@
 import React, { useState } from 'react';
+import './Juego.css'
 
-const Turno = ({turnoJugador}) => {
+const Turno = ({esTurnoJugador}) => {
   
   
   const seleccionTurno = () => {
-    if(turnoJugador){
-      return "Es tu turno!"
-    }
-    else{
-      return "Turno de tu contrincante..."
-    }
-  }
+    return esTurnoJugador ? "Es tu turno!" : "Turno de la Computadora...";
+  };
+
+  const alertClass = esTurnoJugador ? "alert alert-success" : "alert alert-danger";
 
   return (
-    <div className="alert alert-success" role="alert">
+    <div className={alertClass} role="alert">
       {seleccionTurno()}
     </div>
   );
-  
-
 };
 
 export default Turno;

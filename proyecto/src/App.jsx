@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Menu from './components/MenuPrincipal/Menu.jsx';
+import MenuPrincipal from './components/MenuPrincipal/MenuPrincipal.jsx';
 import './App.css';
 import MenuConfiguracion from './components/MenuConfiguracion/MenuConfiguracion';
 
@@ -18,14 +18,13 @@ const App = () => {
     } else if (opcion === 'jugador2') {
       setNombreJugador(nombres.jugador1);
       setNombreJugador2(nombres.jugador2);
-      // Aquí podrías configurar el estado para el Jugador 2 si es necesario
     }
   };
 
   return (
     <div>
       {!opcionSeleccionada ? (
-        <Menu onSeleccion={manejarSeleccion} />
+        <MenuPrincipal onSeleccion={manejarSeleccion} />
       ) : (
         <div className='playersContainer'>
           <MenuConfiguracion

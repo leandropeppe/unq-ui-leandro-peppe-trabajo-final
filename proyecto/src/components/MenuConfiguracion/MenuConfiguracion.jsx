@@ -10,7 +10,7 @@ import Juego from '../MenuJuego/Juego.jsx';
 
 const MenuConfiguracion = ({ jugador, jugador2, modoJuego, configurarBarcos }) => {
   const { 
-    tablero, barcos,barcoSeleccionado,celdasPrevias,configuracionCompleta,tableroComputadora,
+    tablero, tableroComputadora, barcos,barcoSeleccionado,celdasPrevias,configuracionCompleta,
     reiniciarColocacionBarcos, cambiarOrientacion, seleccionarBarco, actualizarCeldasPrevias, colocarBarco,
   } = useConfiguracion();
 

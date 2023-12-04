@@ -4,6 +4,10 @@
     align-items: center;
   }
   
+  .textoTableros {
+    text-align: center;
+  }
+
   .contenedorTableros {
     display: flex;
     gap: 20px; /* Ajusta el espacio entre los tableros según tus preferencias */
@@ -13,6 +17,17 @@
   .tableroAdversario {
     margin: 10px; /* Puedes ajustar el margen según tus preferencias */
   }
+  
+  .alert {
+  width: 20rem; /* Ajusta el ancho según sea necesario */
+  height: 3rem; /* Ajusta la altura según sea necesario */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 1.5rem;
+  }
+
   
   @media only screen and (max-width: 600px) {
     .contenedorTableros {

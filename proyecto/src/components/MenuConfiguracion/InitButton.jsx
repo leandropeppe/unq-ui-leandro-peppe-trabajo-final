@@ -4,10 +4,11 @@ import './MenuConfiguracion.css';
 
 const InitButton = ({ onClick, configuracionCompleta }) => {
   return (
-
-    <button className='button' onClick={onClick} disabled={!configuracionCompleta}>
+    <div className='configButtons'>
+      <button className='button' onClick={onClick} disabled={!configuracionCompleta}>
       Comenzar el juego
     </button>
+    </div>
   );
 };
 
