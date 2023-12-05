@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useConfiguracion } from '../../hooks/useConfiguracion.js';
+import { useTableroComputadora } from '../../hooks/useTableroComputadora.js';
 import './MenuConfiguracion.css';
 import ResetButton from './ResetButton.jsx';
 import OrientationButton from './OrientationButton.jsx';
@@ -10,13 +11,16 @@ import Juego from '../MenuJuego/Juego.jsx';
 
 const MenuConfiguracion = ({ jugador, jugador2, modoJuego, configurarBarcos }) => {
   const { 
-    tablero, tableroComputadora, barcos,barcoSeleccionado,celdasPrevias,configuracionCompleta,
-    reiniciarColocacionBarcos, cambiarOrientacion, seleccionarBarco, actualizarCeldasPrevias, colocarBarco,
+    tablero, barcos,barcoSeleccionado,celdasPrevias,configuracionCompleta,
+    reiniciarColocacionBarcos, cambiarOrientacion, seleccionarBarco, actualizarCeldasPrevias, colocarBarco
   } = useConfiguracion();
+
+  const { tableroComputadora, configurarTableroComputadoraAleatorio } = useTableroComputadora();
 
   const [juegoIniciado, setJuegoIniciado] = useState(false);
 
   const handleStartGame = () => {
+    configurarTableroComputadoraAleatorio();
     setJuegoIniciado(true);
   };
 

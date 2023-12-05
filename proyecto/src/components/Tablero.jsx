@@ -1,17 +1,18 @@
 import React from 'react';
 import Barco from './MenuConfiguracion/Barco';
+import './MenuConfiguracion/MenuConfiguracion.css';
 
-const Tablero = ({ tablero, configurarBarcos, colocarBarco, actualizarCeldasPrevias, barcoSeleccionado, celdasPrevias, permitirAtaque, onAtaque }) => {
-
+const Tablero = ({ tablero, configurarBarcos, colocarBarco, actualizarCeldasPrevias, barcoSeleccionado, celdasPrevias, permitirAtaque, onAtaque, onCeldaClick }) => {
   const handleClick = (indexFila, indexColumna) => {
     if (configurarBarcos) {
-      // Lógica para configurar barcos
       colocarBarco(indexFila, indexColumna);
       actualizarCeldasPrevias(indexFila, indexColumna);
     } else if (permitirAtaque) {
-      // Lógica para manejar ataques
       onAtaque(indexFila, indexColumna);
     }
+
+    // Llama a la función proporcionada desde el componente Juego para manejar el clic
+    onCeldaClick && onCeldaClick(indexFila, indexColumna);
   };
 
   return (

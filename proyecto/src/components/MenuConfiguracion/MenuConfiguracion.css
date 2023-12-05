@@ -7,9 +7,9 @@
 }
 
 .fila {
-    background-color: rgb(252 212 102);
-    display: flex;
-  }
+  background-color: rgb(252, 212, 102);
+  display: flex;
+}
   
   .B {
     background-color: rgb(111, 231, 13);
@@ -23,10 +23,18 @@
     flex: 1;
     border: 1px solid rgb(0, 0, 0); 
   }
-  
-  .ocupada {
-    background-color: #494444; /* Color de fondo para celdas ocupadas */
-  }
+
+    .impacto {
+      background-color: red;
+    }
+
+    .agua {
+      background-color: yellow;
+    }
+    
+    .ocupada {
+      background-color: #494444; /* Color de fondo para celdas ocupadas */
+    }
 
 .celda-previa {
   background-color: rgba(0, 128, 0, 0.5); /* Verde claro con transparencia */

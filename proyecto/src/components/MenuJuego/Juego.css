@@ -27,7 +27,28 @@
   text-align: center;
   font-size: 1.5rem;
   }
+  
+  .celda {
+    border-radius: 5px;
+    width: 30px;
+    height: 30px;
+    background-color: rgb(146, 218, 247);
+    flex: 1;
+    border: 1px solid rgb(0, 0, 0); 
+  }
 
+  .impacto {
+    background-color: red;
+  }
+
+  .agua {
+    background-color: yellow;
+  }
+  
+  .ocupada {
+    background-color: #494444;
+  }
+  
   
   @media only screen and (max-width: 600px) {
     .contenedorTableros {
