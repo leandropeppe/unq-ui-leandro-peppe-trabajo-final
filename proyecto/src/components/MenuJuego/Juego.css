@@ -19,7 +19,7 @@
   }
   
   .alert {
-  width: 20rem; /* Ajusta el ancho según sea necesario */
+  width: 21rem; /* Ajusta el ancho según sea necesario */
   height: 3rem; /* Ajusta la altura según sea necesario */
   display: flex;
   align-items: center;
@@ -28,26 +28,7 @@
   font-size: 1.5rem;
   }
   
-  .celda {
-    border-radius: 5px;
-    width: 30px;
-    height: 30px;
-    background-color: rgb(146, 218, 247);
-    flex: 1;
-    border: 1px solid rgb(0, 0, 0); 
-  }
-
-  .impacto {
-    background-color: red;
-  }
-
-  .agua {
-    background-color: yellow;
-  }
   
-  .ocupada {
-    background-color: #494444;
-  }
   
   
   @media only screen and (max-width: 600px) {

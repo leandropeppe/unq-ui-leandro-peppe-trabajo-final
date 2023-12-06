@@ -19,22 +19,22 @@
     border-radius: 5px;
     width: 30px;
     height: 30px;
-    background-color: rgb(146, 218, 247);
+    background-color: aquamarine;
     flex: 1;
     border: 1px solid rgb(0, 0, 0); 
   }
 
-    .impacto {
-      background-color: red;
-    }
+  .celda.impacto {
+    background-color: rgb(244, 248, 21);
+  }
 
-    .agua {
-      background-color: yellow;
-    }
+  .celda.agua {
+    background-color: rgb(237, 252, 250);
+  }
     
-    .ocupada {
-      background-color: #494444; /* Color de fondo para celdas ocupadas */
-    }
+  .celda.ocupada {
+    background-color: #494444; /* Color de fondo para celdas ocupadas */
+  }
 
 .celda-previa {
   background-color: rgba(0, 128, 0, 0.5); /* Verde claro con transparencia */

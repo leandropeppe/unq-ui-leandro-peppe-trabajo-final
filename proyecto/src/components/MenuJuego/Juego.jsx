@@ -6,7 +6,7 @@ import Turno from './Turno.jsx';
 const Juego = ({ tableroJugador, tableroComputadora }) => {
   
   const [turnoJugador, setTurnoJugador] = useState(true);
-  const [turnoComputadora, setTurnoComputadora] = useState(false);
+  
 
   const [tableroJuegoComputadora, setTableroJuegoComputadora] = useState(() =>
     Array(10).fill(null).map(() => Array(10).fill({ estado: null, tieneBarco: false }))
@@ -16,29 +16,31 @@ const Juego = ({ tableroJugador, tableroComputadora }) => {
     Array(10).fill(null).map(() => Array(10).fill(null))
   );
 
+
+
   const handleAtaqueClick = (fila, columna, esTableroJugador) => {
-    const tablero = esTableroJugador ? tableroJuegoJugador : tableroJuegoComputadora;
+    // Verifica si es el turno del jugador y si está haciendo clic en su propio tablero
+    if (turnoJugador === esTableroJugador) {
+      const tablero = esTableroJugador ? tableroJuegoJugador : tableroJuegoComputadora;
+      const tieneBarco = esTableroJugador
+        ? tableroComputadora[fila][columna] === 'B'
+        : tableroJugador[fila][columna] === 'B';
 
-    const tieneBarco = esTableroJugador
-      ? tableroComputadora[fila][columna] === 'B'
-      : tableroJugador[fila][columna] === 'B';
+      if (tieneBarco) {
+        tablero[fila][columna] = 'impacto';
+        console.log(tablero[fila][columna]);
+      } else {
+        tablero[fila][columna] = 'agua';
+        console.log(tablero[fila][columna]);
+      }
 
-    if (tieneBarco) {
-      tablero[fila][columna] = 'impacto';
-      console.log(tablero[fila][columna]);
-    } else {
-      tablero[fila][columna] = 'agua';
-      console.log(tablero[fila][columna]);
-    }
+      if (esTableroJugador) {
+        setTableroJuegoJugador([...tablero]);
+      } else {
+        setTableroJuegoComputadora([...tablero]);
+      }
 
-    if (esTableroJugador) {
-      setTableroJuegoJugador([...tablero]);
-      setTurnoJugador(!turnoJugador);
-      setTurnoComputadora(!turnoComputadora);
-    } else {
-      setTableroJuegoComputadora([...tablero]);
-      setTurnoComputadora(!turnoComputadora);
-      setTurnoJugador(!turnoJugador);
+      setTurnoJugador(!turnoJugador); // Cambia el turno después de hacer clic
     }
   };
 
@@ -54,7 +56,7 @@ const Juego = ({ tableroJugador, tableroComputadora }) => {
           />
           <h2>Tablero pc hasta ahora</h2>
           <Tablero
-            tablero={tableroJuegoComputadora}
+            tablero={tableroJuegoJugador}
             onCeldaClick={(fila, columna) => handleAtaqueClick(fila, columna, true)}
           />
         </div>
@@ -66,7 +68,7 @@ const Juego = ({ tableroJugador, tableroComputadora }) => {
           />
           <h2>Tablero jugador hasta ahora</h2>
           <Tablero
-            tablero={tableroJuegoJugador}
+            tablero={tableroJuegoComputadora}
             onCeldaClick={(fila, columna) => handleAtaqueClick(fila, columna, false)}
           />
         </div>

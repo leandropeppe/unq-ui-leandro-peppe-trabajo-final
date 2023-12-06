@@ -22,7 +22,7 @@ const Tablero = ({ tablero, configurarBarcos, colocarBarco, actualizarCeldasPrev
           {fila.map((celda, indexColumna) => (
             <div
               key={indexColumna}
-              className={`celda ${celda === 'B' ? 'ocupada' : ''}`}
+              className={`celda ${celda === 'B' ? 'ocupada' : ''} ${celda === 'impacto' ? 'impacto' : ''} ${celda === 'agua' ? 'agua' : ''}`}
               onClick={() => handleClick(indexFila, indexColumna)}
               onMouseOver={() => configurarBarcos && actualizarCeldasPrevias(indexFila, indexColumna)}
             >
