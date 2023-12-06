@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import './Juego.css';
 import Tablero from '../Tablero.jsx';
 import Turno from './Turno.jsx';
+import { useConfiguracion } from '../../hooks/useConfiguracion.js';
 
 const Juego = ({ tableroJugador, tableroComputadora }) => {
   
   const [turnoJugador, setTurnoJugador] = useState(true);
-  
 
   const [tableroJuegoComputadora, setTableroJuegoComputadora] = useState(() =>
     Array(10).fill(null).map(() => Array(10).fill({ estado: null, tieneBarco: false }))
@@ -16,12 +16,12 @@ const Juego = ({ tableroJugador, tableroComputadora }) => {
     Array(10).fill(null).map(() => Array(10).fill(null))
   );
 
-
+  const { tirosComputadora, realizarTiroComputadora } = useConfiguracion();
 
   const handleAtaqueClick = (fila, columna, esTableroJugador) => {
-    // Verifica si es el turno del jugador y si está haciendo clic en su propio tablero
     if (turnoJugador === esTableroJugador) {
       const tablero = esTableroJugador ? tableroJuegoJugador : tableroJuegoComputadora;
+      
       const tieneBarco = esTableroJugador
         ? tableroComputadora[fila][columna] === 'B'
         : tableroJugador[fila][columna] === 'B';
@@ -40,9 +40,27 @@ const Juego = ({ tableroJugador, tableroComputadora }) => {
         setTableroJuegoComputadora([...tablero]);
       }
 
-      setTurnoJugador(!turnoJugador); // Cambia el turno después de hacer clic
+      setTurnoJugador(!turnoJugador); 
     }
   };
+
+  useEffect(() => {
+    // Verificar si es el turno de la computadora
+    if (!turnoJugador) {
+      // Realizar el tiro de la computadora después de 2 segundos
+      const timeoutId = setTimeout(() => {
+        const { fila, columna } = realizarTiroComputadora();
+        handleAtaqueClick(fila, columna, false);
+        console.log(`La computadora disparó a la fila ${fila}, columna ${columna}`);
+        setTurnoJugador(true);
+      }, 2000);
+  
+      // Limpiar el timeout cuando el componente se desmonta o cuando cambia el turno
+      return () => clearTimeout(timeoutId);
+    }
+  }, [turnoJugador, realizarTiroComputadora, handleAtaqueClick]);
+
+
 
   return (
     <div className='bodyGame'>
