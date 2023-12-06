@@ -8,6 +8,10 @@ const App = () => {
   const [nombreJugador2, setNombreJugador2] = useState('');
   const [configurarBarcos, setConfigurarBarcos] = useState(false); 
 
+  const [partidaFinalizada, setPartidaFinalizada] = useState(false);
+  const [ganador, setGanador] = useState('');
+
+
   const manejarSeleccion = (opcion, nombres) => {
     setOpcionSeleccionada(opcion);
 
@@ -20,8 +24,29 @@ const App = () => {
     }
   };
 
+
   return (
     <div>
+      {partidaFinalizada ? (
+        <FinJuego ganador={ganador}/>
+      ) : !opcionSeleccionada ? (
+        <MenuPrincipal onSeleccion={manejarSeleccion} />
+      ) : (
+        <MenuConfiguracion
+          jugador={nombreJugador}
+          jugador2={nombreJugador2}
+          configurarBarcos={configurarBarcos}
+        />
+      ) }
+    </div>
+  );
+};
+
+export default App;
+
+
+/*
+<div>
       {!opcionSeleccionada ? (
         <MenuPrincipal onSeleccion={manejarSeleccion} />
       ) : (
@@ -35,10 +60,6 @@ const App = () => {
         </div>
       )}
     </div>
-  );
-};
-
-export default App;
 
 
-
+  */

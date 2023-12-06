@@ -17,11 +17,11 @@ const Juego = ({ tableroJugador, tableroComputadora }) => {
   Array(10).fill(null).map(() => Array(10).fill(null))
   );
   
-  const { tirosComputadora, realizarTiroComputadora } = useConfiguracion();
-  const [contadorJugador,setContadorJugador] = useState(14);
-  const [contadorComputadora,setContadorComputadora] = useState(14);
-  const [nombreGanador,setNombreGanador] = useState('');
+  const [contadorJugador,setContadorJugador] = useState(13);
+  const [contadorComputadora,setContadorComputadora] = useState(13);
+  const [situacionDeJuego,setSituacionDeJuego] = useState('');
   
+  const {realizarTiroComputadora} = useConfiguracion();
 
   const aumentarImpactos = () => {
     if(turnoJugador){
@@ -33,12 +33,12 @@ const Juego = ({ tableroJugador, tableroComputadora }) => {
     }
 
     if( contadorJugador === 14 ){
+      setSituacionDeJuego('Has Ganado!')
       setJuegoFinalizado(true)
-      setNombreGanador('Has Ganado!')
     }
     if( contadorComputadora === 14 ){
+      setSituacionDeJuego('Has Perdido..')
       setJuegoFinalizado(true)
-      setNombreGanador('Has Perdido..')
     }
     
   }
@@ -97,7 +97,7 @@ const Juego = ({ tableroJugador, tableroComputadora }) => {
   return (
     <div>
       {juegoFinalizado ? (
-      <FinJuego ganador={nombreGanador}/>
+      <FinJuego ganador={situacionDeJuego}/>
     ) : (
       <div className='bodyGame'>
         <h1 id='titulo'>Hora de jugar!</h1>
