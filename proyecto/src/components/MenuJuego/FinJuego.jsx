@@ -1,26 +1,19 @@
 import './Juego.css';
-import MenuPrincipal from '../MenuPrincipal/MenuPrincipal';
-import MenuConfiguracion from '../MenuConfiguracion/MenuConfiguracion';
-import { useState } from 'react';
 
-const FinJuego = ({ganador}) => {
 
-    
+const FinJuego = ({ganador, reiniciarPartida, irAMenuPrincipal}) => {
 
-    const reiniciarPartida = () => {
-       //<MenuConfiguracion/>
-    }
-    const irAMenuPrincipal = () => {
-        //<MenuPrincipal/>
-    }
+
 
     return (
-        <div>
-            <div className='ganador'>
-                <h2>{ganador}</h2>
+        <div className='container'  style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
+            <div className='ganador centered'>
+                <h1>{ganador}</h1>
             </div>
-            <button className='button' onClick={() => reiniciarPartida()}>Reiniciar Partida</button>
-            <button className='button' onClick={() => irAMenuPrincipal()}>Menu Principal</button>
+            <div className='buttons centered' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
+            <button className='button' style={{ fontSize: '1.5rem' }} onClick={reiniciarPartida}>Reiniciar Partida</button>
+            <button className='button' style={{ fontSize: '1.5rem' }} onClick={irAMenuPrincipal}>Menu Principal</button>
+            </div>
         </div>
     );
 };
