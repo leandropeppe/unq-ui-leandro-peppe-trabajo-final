@@ -13,6 +13,9 @@ export const useConfiguracion = () => {
   
   const [tirosComputadora, setTirosComputadora] = useState([]);
 
+  const [mostrarAlerta, setMostrarAlerta] = useState(false);
+  const [mensajeAlerta, setMensajeAlerta] = useState('');
+
   const reiniciarColocacionBarcos = () => {
     setTablero(Array(10).fill(null).map(() => Array(10).fill(null)));
     setBarcos({
@@ -98,7 +101,11 @@ export const useConfiguracion = () => {
         setBarcoSeleccionado(null);
         setCeldasPrevias([]);
       } else {
-        alert('No se puede colocar el barco en esa posición. Elija otra posición.');
+        setMensajeAlerta('No se puede colocar un barco sobre otro. Elija otra posición.');
+        setMostrarAlerta(true);
+        setTimeout(() => {
+          setMostrarAlerta(false);
+        }, 2000);
       }
     }
   };
@@ -143,7 +150,7 @@ export const useConfiguracion = () => {
   };
 
   return {
-    tablero, barcos, barcoSeleccionado, celdasPrevias, configuracionCompleta, orientacionVertical, tirosComputadora,
+    tablero, barcos, barcoSeleccionado, celdasPrevias, configuracionCompleta, orientacionVertical, tirosComputadora,mostrarAlerta,mensajeAlerta,
     realizarTiroComputadora, verificarColocacionBarco, reiniciarColocacionBarcos, cambiarOrientacion, seleccionarBarco,
     actualizarCeldasPrevias, colocarBarco,
   };

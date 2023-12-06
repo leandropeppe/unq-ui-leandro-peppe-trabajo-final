@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 import './MenuPrincipal.css'
+import Alert from '../Alert.jsx';
+
 
 const MenuPrincipal = ({ onSeleccion }) => {
   const [nombreJugador, setNombreJugador] = useState('');
   const [nombreJugador2, setNombreJugador2] = useState(''); 
   const [opcionSeleccionada, setOpcionSeleccionada] = useState(null);
+  const [mostrarAlerta, setMostrarAlerta] = useState(false);
+  const [mensajeAlerta, setMensajeAlerta] = useState('');
 
   const manejarCambioNombre = (event) => {
     setNombreJugador(event.target.value);
@@ -15,19 +19,39 @@ const MenuPrincipal = ({ onSeleccion }) => {
   };
 
   const comenzarJuego = () => {
-    if (opcionSeleccionada === 'pc' && nombreJugador.trim() !== '') {
-      onSeleccion(opcionSeleccionada, nombreJugador);
-    } else if (opcionSeleccionada === 'jugador2' && nombreJugador.trim() !== '' && nombreJugador2.trim() !== '') {
-      onSeleccion(opcionSeleccionada, { jugador1: nombreJugador, jugador2: nombreJugador2 });
+    if (opcionSeleccionada === 'pc') {
+      if (nombreJugador.trim() !== '') {
+        // Caso válido: Jugar contra la PC con nombre ingresado
+        onSeleccion(opcionSeleccionada, nombreJugador);
+      } else {
+        // Caso inválido: Falta el nombre
+        setMensajeAlerta('Por favor, ingresa tu nombre.');
+        setMostrarAlerta(true);
+      }
+    } else if (opcionSeleccionada === 'jugador2') {
+      if (nombreJugador.trim() !== '' && nombreJugador2.trim() !== '') {
+        // Caso válido: Jugar contra Jugador 2 con nombres ingresados
+        onSeleccion(opcionSeleccionada, { jugador1: nombreJugador, jugador2: nombreJugador2 });
+      } else if (nombreJugador.trim() === '' && nombreJugador2.trim() === '') {
+        // Caso inválido: Faltan ambos nombres
+        setMensajeAlerta('Por favor, ingresa tus nombres para jugar contra Jugador 2.');
+        setMostrarAlerta(true);
+      } else {
+        // Caso inválido: Falta al menos un nombre
+        setMensajeAlerta('Por favor, ingresa ambos nombres para jugar contra Jugador 2.');
+        setMostrarAlerta(true);
+      }
     } else {
-      alert('Por favor, ingresa nombres válidos y selecciona una opción de juego.');
+      // Caso inválido: No se seleccionó una opción de juego
+      setMensajeAlerta('Por favor, selecciona una opción de juego.');
+      setMostrarAlerta(true);
     }
   };
 
   return (
     <div className='menu'>
       <h1>Batalla Naval</h1>
-      <h4>Seleccione contra quién quiere jugar:</h4>
+      <h4 style={{ textAlign:'center' }} >Seleccione contra quién quiere jugar:</h4>
       <div className='buttonSeleccionContainer '>
         <button className='button' onClick={() => setOpcionSeleccionada('pc')}>Jugar contra la PC</button>
         <button className='button' onClick={() => setOpcionSeleccionada('jugador2')}>Jugar contra Jugador 2</button>
@@ -45,6 +69,7 @@ const MenuPrincipal = ({ onSeleccion }) => {
         )}
       </div>
       <button className='button' onClick={comenzarJuego}>Comenzar Juego</button>
+      {mostrarAlerta && <Alert mensaje={mensajeAlerta} />}
     </div>
   );
 };

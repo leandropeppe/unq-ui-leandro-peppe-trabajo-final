@@ -8,16 +8,19 @@ import BarcosButtons from './BarcosButtons.jsx';
 import Tablero from '../Tablero.jsx';
 import InitButton from './InitButton.jsx';
 import Juego from '../MenuJuego/Juego.jsx';
+import Alert from '../Alert.jsx';
 
-const MenuConfiguracion = ({ jugador, jugador2, modoJuego, configurarBarcos }) => {
+const MenuConfiguracion = ({ jugador, jugador2, configurarBarcos }) => {
   const { 
-    tablero, barcos,barcoSeleccionado,celdasPrevias,configuracionCompleta,
+    tablero, barcos,barcoSeleccionado,celdasPrevias,configuracionCompleta,mostrarAlerta,mensajeAlerta,
     reiniciarColocacionBarcos, cambiarOrientacion, seleccionarBarco, actualizarCeldasPrevias, colocarBarco
   } = useConfiguracion();
 
   const { tableroComputadora, configurarTableroComputadoraAleatorio } = useTableroComputadora();
 
   const [juegoIniciado, setJuegoIniciado] = useState(false);
+
+  
 
   const handleStartGame = () => {
     configurarTableroComputadoraAleatorio();
@@ -31,15 +34,20 @@ const MenuConfiguracion = ({ jugador, jugador2, modoJuego, configurarBarcos }) =
       ) : (
         <div>
           <div>
-            <h3>Jugador: {jugador}</h3>
+            <h3 className='text' >Jugador: {jugador}</h3>
             {jugador2 && <h3>Jugador 2: {jugador2}</h3>}
           </div>
           <div>
             {configurarBarcos ? (
               <div>
-                <h4>Posicioná a tu flota!</h4>
-                <p>Presiona el barco que quieres colocar e insertalo en el tablero..</p>
+                <div>
+                  <h4 className='text' >Posicioná a tu flota!</h4>
+                  <p className='text' >Presiona el barco que quieres colocar e insertalo en el tablero..</p>
+                </div>
                 <BarcosButtons barcos={barcos} barcoSeleccionado={barcoSeleccionado} seleccionarBarco={seleccionarBarco} />
+                <div className='alertContainer centered'>
+                {mostrarAlerta && <Alert mensaje={mensajeAlerta} />}
+                </div>
               </div>
             ) : (
               <p>Turno de juego...</p>

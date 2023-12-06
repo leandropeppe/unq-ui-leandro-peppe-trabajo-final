@@ -4,7 +4,11 @@
   flex-direction: column; 
   justify-content: center; 
   align-items: center; 
-  margin: 2rem;
+  margin-bottom: 1rem;
+}
+
+.text{
+  margin-left: 1rem;
 }
 
 .fila {
@@ -61,6 +65,17 @@
   margin: 5px; 
 }
 
+.alertContainer{
+  justify-content: center;
+  margin: 0.5rem;
+}
+
+.centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .button:disabled {
   background-color: lightgray; 
   cursor: not-allowed; 
@@ -72,5 +87,10 @@
   }
   .celda-previa {
     background-color: rgba(0, 128, 0, 0.7);
+  }
+  .text{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 }
