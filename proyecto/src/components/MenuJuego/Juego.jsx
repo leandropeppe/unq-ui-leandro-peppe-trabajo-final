@@ -20,7 +20,15 @@ const Juego = ({ tableroJugador, tableroComputadora }) => {
 
   const handleAtaqueClick = (fila, columna, esTableroJugador) => {
     if (turnoJugador === esTableroJugador) {
-      const tablero = esTableroJugador ? tableroJuegoJugador : tableroJuegoComputadora;
+      const tablero = esTableroJugador ? tableroJuegoJugador : tableroJugador;
+
+      const celdaAtacada = esTableroJugador
+      ? tableroJuegoJugador[fila][columna]
+      : tableroJuegoComputadora[fila][columna];
+
+      if (celdaAtacada === 'agua' || celdaAtacada === 'impacto') {
+        return;
+      }
       
       const tieneBarco = esTableroJugador
         ? tableroComputadora[fila][columna] === 'B'
@@ -45,9 +53,7 @@ const Juego = ({ tableroJugador, tableroComputadora }) => {
   };
 
   useEffect(() => {
-    // Verificar si es el turno de la computadora
     if (!turnoJugador) {
-      // Realizar el tiro de la computadora después de 2 segundos
       const timeoutId = setTimeout(() => {
         const { fila, columna } = realizarTiroComputadora();
         handleAtaqueClick(fila, columna, false);
@@ -55,7 +61,6 @@ const Juego = ({ tableroJugador, tableroComputadora }) => {
         setTurnoJugador(true);
       }, 2000);
   
-      // Limpiar el timeout cuando el componente se desmonta o cuando cambia el turno
       return () => clearTimeout(timeoutId);
     }
   }, [turnoJugador, realizarTiroComputadora, handleAtaqueClick]);
@@ -63,6 +68,34 @@ const Juego = ({ tableroJugador, tableroComputadora }) => {
 
 
   return (
+    <div className='bodyGame'>
+      <h1>Hora de competir..</h1>
+      <Turno esTurnoJugador={turnoJugador}/>
+      <div className='contenedorTableros'>
+        <div className='tableroJugador1'>
+          <h3 className='textoTableros'>Tablero del Jugador</h3>
+          <Tablero
+            tablero={tableroJugador}
+            onCeldaClick={(fila, columna) => handleAtaqueClick(fila, columna, false)}
+          />
+        </div>
+        <div className='tableroAdversario'>
+          <h3 className='textoTableros'>Tablero de la Computadora</h3>
+          <Tablero
+            tablero={tableroJuegoJugador}
+            onCeldaClick={(fila, columna) => handleAtaqueClick(fila, columna, true)}
+          />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Juego;
+
+/*
+
+return (
     <div className='bodyGame'>
       <h1>Hora de competir..</h1>
       <Turno esTurnoJugador={turnoJugador}/>
@@ -95,5 +128,4 @@ const Juego = ({ tableroJugador, tableroComputadora }) => {
   );
 };
 
-export default Juego;
-
+*/ 

@@ -11,7 +11,6 @@ const Tablero = ({ tablero, configurarBarcos, colocarBarco, actualizarCeldasPrev
       onAtaque(indexFila, indexColumna);
     }
 
-    // Llama a la función proporcionada desde el componente Juego para manejar el clic
     onCeldaClick && onCeldaClick(indexFila, indexColumna);
   };
 

@@ -130,20 +130,14 @@ export const useConfiguracion = () => {
   };
 
   const realizarTiroComputadora = () => {
-    // Lógica para determinar dónde disparará la computadora
-    // Por ejemplo, seleccionar una celda aleatoria que no haya sido atacada antes
     const fila = Math.floor(Math.random() * 10);
     const columna = Math.floor(Math.random() * 10);
-  
-    // Verificar si la celda ya ha sido atacada antes
     const celdaYaAtacada = tirosComputadora.some(tiro => tiro.fila === fila && tiro.columna === columna);
   
     if (!celdaYaAtacada) {
-      // Almacenar el tiro de la computadora en el historial
       setTirosComputadora([...tirosComputadora, { fila, columna }]);
       return { fila, columna };
     } else {
-      // Si la celda ya ha sido atacada, realizar otro tiro recursivamente
       return realizarTiroComputadora();
     }
   };

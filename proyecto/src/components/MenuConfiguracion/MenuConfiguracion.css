@@ -1,9 +1,10 @@
 
 .tablero {
   display: flex;
-  flex-direction: column; /* Alinea los elementos verticalmente */
-  justify-content: center; /* Centra en el eje vertical */
-  align-items: center; /* Centra en el eje horizontal */
+  flex-direction: column; 
+  justify-content: center; 
+  align-items: center; 
+  margin: 2rem;
 }
 
 .fila {
@@ -33,11 +34,11 @@
   }
     
   .celda.ocupada {
-    background-color: #494444; /* Color de fondo para celdas ocupadas */
+    background-color: #494444; 
   }
 
 .celda-previa {
-  background-color: rgba(0, 128, 0, 0.5); /* Verde claro con transparencia */
+  background-color: rgba(0, 128, 0, 0.5); 
   width: 100%;
   height: 100%;
 }
@@ -61,13 +62,15 @@
 }
 
 .button:disabled {
-  background-color: lightgray; /* O el color que desees para indicar que está deshabilitado */
-  cursor: not-allowed; /* Cambia el cursor cuando está deshabilitado */
-  /* Otros estilos según sea necesario cuando está deshabilitado */
+  background-color: lightgray; 
+  cursor: not-allowed; 
 }
 
 @media (max-width: 600px) {
   .button {
-    flex-basis: 100%; /* Ocupa el 100% del ancho en pantallas más pequeñas */
+    flex-basis: 100%; 
+  }
+  .celda-previa {
+    background-color: rgba(0, 128, 0, 0.7);
   }
 }
