@@ -100,6 +100,7 @@ export const useConfiguracion = () => {
 
         setBarcoSeleccionado(null);
         setCeldasPrevias([]);
+        
       } else {
         setMensajeAlerta('No se puede colocar un barco sobre otro. Elija otra posición.');
         setMostrarAlerta(true);

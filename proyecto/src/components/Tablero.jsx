@@ -3,6 +3,7 @@ import Barco from './MenuConfiguracion/Barco';
 import './MenuConfiguracion/MenuConfiguracion.css';
 
 const Tablero = ({ tablero, configurarBarcos, colocarBarco, actualizarCeldasPrevias, barcoSeleccionado, celdasPrevias, permitirAtaque, onAtaque, onCeldaClick }) => {
+  
   const handleClick = (indexFila, indexColumna) => {
     if (configurarBarcos) {
       colocarBarco(indexFila, indexColumna);

@@ -1,14 +1,22 @@
 import React, { useState,useEffect } from 'react';
+import { useConfiguracion } from '../../hooks/useConfiguracion.js';
+import { useJuego } from '../../hooks/useJuego.js';
+import { useAudio } from '../../hooks/useAudio.js';
 import './Juego.css';
 import Tablero from '../Tablero.jsx';
 import Turno from './Turno.jsx';
-import { useConfiguracion } from '../../hooks/useConfiguracion.js';
 import FinJuego from './FinJuego.jsx';
+import explosion from '../../sounds/explosion.mp3'
+import water from '../../sounds/water.mp3'
 
 const Juego = ({ tableroJugador, tableroComputadora }) => {
   
-  const [turnoJugador, setTurnoJugador] = useState(true);
-  const [juegoFinalizado,setJuegoFinalizado] = useState(false);
+  const { turnoJugador,setTurnoJugador, juegoFinalizado,setJuegoFinalizado, situacionDeJuego, aumentarImpactos } = useJuego();
+  
+  const {realizarTiroComputadora} = useConfiguracion();
+
+  const { reproducirSonido } = useAudio();
+
   const [tableroJuegoComputadora, setTableroJuegoComputadora] = useState(() =>
   Array(10).fill(null).map(() => Array(10).fill({ estado: null, tieneBarco: false }))
   );
@@ -17,56 +25,30 @@ const Juego = ({ tableroJugador, tableroComputadora }) => {
   Array(10).fill(null).map(() => Array(10).fill(null))
   );
   
-  const [contadorJugador,setContadorJugador] = useState(13);
-  const [contadorComputadora,setContadorComputadora] = useState(13);
-  const [situacionDeJuego,setSituacionDeJuego] = useState('');
-  
-  const {realizarTiroComputadora} = useConfiguracion();
-
-  const aumentarImpactos = () => {
-    if(turnoJugador){
-      setContadorJugador(contadorJugador + 1)
-      console.log('Aumento al contador del jugador a ' + contadorJugador)
-    }else{
-      setContadorComputadora(contadorComputadora + 1)
-      console.log('Aumento al contador de la computadora a ' + contadorComputadora)
-    }
-
-    if( contadorJugador === 14 ){
-      setSituacionDeJuego('Has Ganado!')
-      setJuegoFinalizado(true)
-    }
-    if( contadorComputadora === 14 ){
-      setSituacionDeJuego('Has Perdido..')
-      setJuegoFinalizado(true)
-    }
-    
-  }
-  
 
   const handleAtaqueClick = (fila, columna, esTableroJugador) => {
     if (turnoJugador === esTableroJugador) {
       const tablero = esTableroJugador ? tableroJuegoJugador : tableroJugador;
 
       const celdaAtacada = esTableroJugador
-      ? tableroJuegoJugador[fila][columna]
-      : tableroJuegoComputadora[fila][columna];
+        ? tableroJuegoJugador[fila][columna]
+        : tableroJuegoComputadora[fila][columna];
 
       if (celdaAtacada === 'agua' || celdaAtacada === 'impacto') {
         return;
       }
-      
+
       const tieneBarco = esTableroJugador
         ? tableroComputadora[fila][columna] === 'B'
         : tableroJugador[fila][columna] === 'B';
 
       if (tieneBarco) {
         tablero[fila][columna] = 'impacto';
+        reproducirSonido(explosion);
         aumentarImpactos();
-        console.log(tablero[fila][columna]);
       } else {
         tablero[fila][columna] = 'agua';
-        console.log(tablero[fila][columna]);
+        reproducirSonido(water);
       }
 
       if (esTableroJugador) {
@@ -75,9 +57,10 @@ const Juego = ({ tableroJugador, tableroComputadora }) => {
         setTableroJuegoComputadora([...tablero]);
       }
 
-      setTurnoJugador(!turnoJugador); 
+      setTurnoJugador(!turnoJugador);
     }
   };
+
 
   useEffect(() => {
     if (!turnoJugador) {
@@ -97,7 +80,7 @@ const Juego = ({ tableroJugador, tableroComputadora }) => {
   return (
     <div>
       {juegoFinalizado ? (
-      <FinJuego ganador={situacionDeJuego}/>
+      <FinJuego ganador={situacionDeJuego} reiniciar={setJuegoFinalizado}/>
     ) : (
       <div className='bodyGame'>
         <h1 id='titulo'>Hora de jugar!</h1>

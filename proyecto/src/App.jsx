@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import MenuPrincipal from './components/MenuPrincipal/MenuPrincipal.jsx';
 import MenuConfiguracion from './components/MenuConfiguracion/MenuConfiguracion';
+import FinJuego from './components/MenuJuego/FinJuego.jsx';
 
 const App = () => {
   const [opcionSeleccionada, setOpcionSeleccionada] = useState(null);
@@ -24,11 +25,26 @@ const App = () => {
     }
   };
 
+  const irAMenuPrincipal = () => {
+    // Ir al menú principal
+    setOpcionSeleccionada(null);
+    setPartidaFinalizada(false);
+    setGanador('');
+  };
+
+  const reiniciarPartida = () => {
+    // Reiniciar el estado o realizar las acciones necesarias
+    setOpcionSeleccionada(null);
+    setConfigurarBarcos(false);
+    setPartidaFinalizada(false);
+    setGanador('');
+  };
+
 
   return (
     <div>
       {partidaFinalizada ? (
-        <FinJuego ganador={ganador}/>
+        <FinJuego ganador={ganador} reiniciarPartida={reiniciarPartida} irAMenuPrincipal={irAMenuPrincipal}/>
       ) : !opcionSeleccionada ? (
         <MenuPrincipal onSeleccion={manejarSeleccion} />
       ) : (
@@ -44,22 +60,3 @@ const App = () => {
 
 export default App;
 
-
-/*
-<div>
-      {!opcionSeleccionada ? (
-        <MenuPrincipal onSeleccion={manejarSeleccion} />
-      ) : (
-        <div className='playersContainer'>
-          <MenuConfiguracion
-            jugador={nombreJugador}
-            jugador2={nombreJugador2}
-            modoJuego={opcionSeleccionada}
-            configurarBarcos={configurarBarcos}
-          />
-        </div>
-      )}
-    </div>
-
-
-  */
