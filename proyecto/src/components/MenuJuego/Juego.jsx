@@ -80,21 +80,21 @@ const Juego = ({ tableroJugador, tableroComputadora }) => {
   return (
     <div>
       {juegoFinalizado ? (
-      <FinJuego ganador={situacionDeJuego} reiniciar={setJuegoFinalizado}/>
+      <FinJuego ganador={situacionDeJuego} />
     ) : (
       <div className='bodyGame'>
         <h1 id='titulo'>Hora de jugar!</h1>
         <Turno esTurnoJugador={turnoJugador}/>
         <div className='contenedorTableros'>
           <div className='tableroJugador1'>
-            <h3 className='textoTableros'>Tablero del Jugador</h3>
+            <h3 className='textoTableros'>Tu tablero</h3>
             <Tablero
               tablero={tableroJugador}
               onCeldaClick={(fila, columna) => handleAtaqueClick(fila, columna, false)}
             />
           </div>
           <div className='tableroAdversario'>
-            <h3 className='textoTableros'>Tablero de la Computadora</h3>
+            <h3 className='textoTableros'>Tablero del contrincante</h3>
             <Tablero
               tablero={tableroJuegoJugador}
               onCeldaClick={(fila, columna) => handleAtaqueClick(fila, columna, true)}

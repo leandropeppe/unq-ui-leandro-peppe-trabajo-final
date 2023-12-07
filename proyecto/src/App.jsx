@@ -25,26 +25,13 @@ const App = () => {
     }
   };
 
-  const irAMenuPrincipal = () => {
-    // Ir al menú principal
-    setOpcionSeleccionada(null);
-    setPartidaFinalizada(false);
-    setGanador('');
-  };
 
-  const reiniciarPartida = () => {
-    // Reiniciar el estado o realizar las acciones necesarias
-    setOpcionSeleccionada(null);
-    setConfigurarBarcos(false);
-    setPartidaFinalizada(false);
-    setGanador('');
-  };
 
 
   return (
     <div>
       {partidaFinalizada ? (
-        <FinJuego ganador={ganador} reiniciarPartida={reiniciarPartida} irAMenuPrincipal={irAMenuPrincipal}/>
+        <FinJuego ganador={ganador}  />
       ) : !opcionSeleccionada ? (
         <MenuPrincipal onSeleccion={manejarSeleccion} />
       ) : (
@@ -53,7 +40,7 @@ const App = () => {
           jugador2={nombreJugador2}
           configurarBarcos={configurarBarcos}
         />
-      ) }
+      )}
     </div>
   );
 };

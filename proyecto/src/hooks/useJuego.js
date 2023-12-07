@@ -5,8 +5,8 @@ export const useJuego = () => {
 
   const [turnoJugador, setTurnoJugador] = useState(true);
   const [juegoFinalizado, setJuegoFinalizado] = useState(false);
-  const [contadorJugador, setContadorJugador] = useState(1);
-  const [contadorComputadora, setContadorComputadora] = useState(1);
+  const [contadorJugador, setContadorJugador] = useState(13);
+  const [contadorComputadora, setContadorComputadora] = useState(13);
   const [situacionDeJuego, setSituacionDeJuego] = useState('');
 
   const aumentarImpactos = () => {
