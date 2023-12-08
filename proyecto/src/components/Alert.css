@@ -1,13 +1,9 @@
-.alert {
-    
-}
-
 .textoAlert{
     font-size: 1rem;
 }
 
 
 .bi{
-    width: 2rem; /* Ajusta el tamaño según sea necesario */
+    width: 2rem; 
     height: 2rem;
 }

@@ -27,10 +27,23 @@ const MenuConfiguracion = ({ jugador, jugador2, configurarBarcos }) => {
     setJuegoIniciado(true);
   };
 
+  const handleRestart = () => {
+    setJuegoIniciado(false);
+    reiniciarColocacionBarcos();
+  };
+
+  const handleMenuPrinciapal = () => {
+    
+  };
+
   return (
     <div>
       {juegoIniciado ? (
-        <Juego tableroJugador={tablero} tableroComputadora={tableroComputadora} />
+        <Juego 
+            tableroJugador={tablero} 
+            tableroComputadora={tableroComputadora} 
+            reiniciarConfig={handleRestart}  
+            menuPrincipal={handleMenuPrinciapal} />
       ) : (
         <div>
           <div>

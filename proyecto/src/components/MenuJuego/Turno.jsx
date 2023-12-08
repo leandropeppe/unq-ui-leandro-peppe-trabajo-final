@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import './Juego.css'
 
 const Turno = ({esTurnoJugador}) => {

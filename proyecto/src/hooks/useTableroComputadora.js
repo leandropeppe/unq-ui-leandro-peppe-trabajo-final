@@ -58,5 +58,5 @@ export const useTableroComputadora = () => {
     }
   };
 
-  return { tableroComputadora, configurarTableroComputadoraAleatorio };
+  return { tableroComputadora, setTableroComputadora, configurarTableroComputadoraAleatorio };
 };

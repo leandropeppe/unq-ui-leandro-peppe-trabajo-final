@@ -9,9 +9,6 @@ const App = () => {
   const [nombreJugador2, setNombreJugador2] = useState('');
   const [configurarBarcos, setConfigurarBarcos] = useState(false); 
 
-  const [partidaFinalizada, setPartidaFinalizada] = useState(false);
-  const [ganador, setGanador] = useState('');
-
 
   const manejarSeleccion = (opcion, nombres) => {
     setOpcionSeleccionada(opcion);
@@ -22,6 +19,7 @@ const App = () => {
     } else if (opcion === 'jugador2') {
       setNombreJugador(nombres.jugador1);
       setNombreJugador2(nombres.jugador2);
+      setConfigurarBarcos(true);
     }
   };
 
@@ -30,9 +28,7 @@ const App = () => {
 
   return (
     <div>
-      {partidaFinalizada ? (
-        <FinJuego ganador={ganador}  />
-      ) : !opcionSeleccionada ? (
+      {!opcionSeleccionada ? (
         <MenuPrincipal onSeleccion={manejarSeleccion} />
       ) : (
         <MenuConfiguracion

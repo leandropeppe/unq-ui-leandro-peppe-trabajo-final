@@ -10,6 +10,7 @@ const MenuPrincipal = ({ onSeleccion }) => {
   const [mostrarAlerta, setMostrarAlerta] = useState(false);
   const [mensajeAlerta, setMensajeAlerta] = useState('');
 
+
   const manejarCambioNombre = (event) => {
     setNombreJugador(event.target.value);
   };
@@ -31,7 +32,9 @@ const MenuPrincipal = ({ onSeleccion }) => {
     } else if (opcionSeleccionada === 'jugador2') {
       if (nombreJugador.trim() !== '' && nombreJugador2.trim() !== '') {
         // Caso válido: Jugar contra Jugador 2 con nombres ingresados
-        onSeleccion(opcionSeleccionada, { jugador1: nombreJugador, jugador2: nombreJugador2 });
+        //onSeleccion(opcionSeleccionada, { jugador1: nombreJugador, jugador2: nombreJugador2 });
+        setMensajeAlerta('Lo siento ' + nombreJugador + ' y ' + nombreJugador2 + '...la version multijugador no está habilitada.');
+        setMostrarAlerta(true);
       } else if (nombreJugador.trim() === '' && nombreJugador2.trim() === '') {
         // Caso inválido: Faltan ambos nombres
         setMensajeAlerta('Por favor, ingresa tus nombres para jugar contra Jugador 2.');

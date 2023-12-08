@@ -2,16 +2,13 @@ import React from 'react';
 import Barco from './MenuConfiguracion/Barco';
 import './MenuConfiguracion/MenuConfiguracion.css';
 
-const Tablero = ({ tablero, configurarBarcos, colocarBarco, actualizarCeldasPrevias, barcoSeleccionado, celdasPrevias, permitirAtaque, onAtaque, onCeldaClick }) => {
+const Tablero = ({ tablero, configurarBarcos, colocarBarco, actualizarCeldasPrevias, barcoSeleccionado, celdasPrevias, onCeldaClick }) => {
   
   const handleClick = (indexFila, indexColumna) => {
     if (configurarBarcos) {
       colocarBarco(indexFila, indexColumna);
       actualizarCeldasPrevias(indexFila, indexColumna);
-    } else if (permitirAtaque) {
-      onAtaque(indexFila, indexColumna);
-    }
-
+    } 
     onCeldaClick && onCeldaClick(indexFila, indexColumna);
   };
 

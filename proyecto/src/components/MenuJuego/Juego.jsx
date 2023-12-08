@@ -9,7 +9,7 @@ import FinJuego from './FinJuego.jsx';
 import explosion from '../../sounds/explosion.mp3'
 import water from '../../sounds/water.mp3'
 
-const Juego = ({ tableroJugador, tableroComputadora }) => {
+const Juego = ({ tableroJugador, tableroComputadora, reiniciarConfig , menuPrincipal}) => {
   
   const { turnoJugador,setTurnoJugador, juegoFinalizado,setJuegoFinalizado, situacionDeJuego, aumentarImpactos } = useJuego();
   
@@ -27,7 +27,7 @@ const Juego = ({ tableroJugador, tableroComputadora }) => {
   
 
   const handleAtaqueClick = (fila, columna, esTableroJugador) => {
-    if (turnoJugador === esTableroJugador) {
+    if ((turnoJugador === esTableroJugador) && !juegoFinalizado ) {
       const tablero = esTableroJugador ? tableroJuegoJugador : tableroJugador;
 
       const celdaAtacada = esTableroJugador
@@ -75,12 +75,14 @@ const Juego = ({ tableroJugador, tableroComputadora }) => {
   }, [turnoJugador, realizarTiroComputadora, handleAtaqueClick]);
 
 
+  const handleRestart = () => {
+    reiniciarConfig(false);
+  };
+
 
   return (
     <div>
-      {juegoFinalizado ? (
-      <FinJuego ganador={situacionDeJuego} />
-    ) : (
+      {juegoFinalizado && <FinJuego ganador={situacionDeJuego} onRestart={handleRestart} menuPrincipal={menuPrincipal}/>}
       <div className='bodyGame'>
         <h1 id='titulo'>Hora de jugar!</h1>
         <Turno esTurnoJugador={turnoJugador}/>
@@ -101,46 +103,9 @@ const Juego = ({ tableroJugador, tableroComputadora }) => {
           </div>
         </div>
       </div>
-    )}
     </div>
   );
 };
 
 export default Juego;
 
-/*
-
-return (
-    <div className='bodyGame'>
-      <h1>Hora de competir..</h1>
-      <Turno esTurnoJugador={turnoJugador}/>
-      <div className='contenedorTableros'>
-        <div className='tableroJugador1'>
-          <h3 className='textoTableros'>Tablero del Jugador</h3>
-          <Tablero
-            tablero={tableroJugador}
-          />
-          <h2>Tablero pc hasta ahora</h2>
-          <Tablero
-            tablero={tableroJuegoJugador}
-            onCeldaClick={(fila, columna) => handleAtaqueClick(fila, columna, true)}
-          />
-        </div>
-
-        <div className='tableroAdversario'>
-          <h3 className='textoTableros'>Tablero de la Computadora</h3>
-          <Tablero
-            tablero={tableroComputadora}
-          />
-          <h2>Tablero jugador hasta ahora</h2>
-          <Tablero
-            tablero={tableroJuegoComputadora}
-            onCeldaClick={(fila, columna) => handleAtaqueClick(fila, columna, false)}
-          />
-        </div>
-      </div>
-    </div>
-  );
-};
-
-*/ 
