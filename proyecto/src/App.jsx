@@ -39,6 +39,10 @@ const App = () => {
           jugador={nombreJugador}
           jugador2={nombreJugador2}
           configurarBarcos={configurarBarcos}
+          onPressFinalizarPartida={() => {
+            setOpcionSeleccionada(false)
+          }}
+          setOpcionSeleccionada={setOpcionSeleccionada}
         />
       )}
     </div>

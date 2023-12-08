@@ -67,7 +67,6 @@ const Juego = ({ tableroJugador, tableroComputadora }) => {
       const timeoutId = setTimeout(() => {
         const { fila, columna } = realizarTiroComputadora();
         handleAtaqueClick(fila, columna, false);
-        console.log(`La computadora disparó a la fila ${fila}, columna ${columna}`);
         setTurnoJugador(true);
       }, 2000);
   
