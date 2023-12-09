@@ -51,10 +51,10 @@ const MenuConfiguracion = ({ jugador, jugador2, configurarBarcos }) => {
             {jugador2 && <h3>Jugador 2: {jugador2}</h3>}
           </div>
           <div>
-            {configurarBarcos ? (
+            {configurarBarcos && (
               <div>
                 <div>
-                  <h4 className='text' >Posicioná a tu flota!</h4>
+                  <h4 className='text' >Posiciona a tu flota!</h4>
                   <p className='text' >Presiona el barco que quieres colocar e insertalo en el tablero..</p>
                 </div>
                 <BarcosButtons barcos={barcos} barcoSeleccionado={barcoSeleccionado} seleccionarBarco={seleccionarBarco} />
@@ -62,8 +62,6 @@ const MenuConfiguracion = ({ jugador, jugador2, configurarBarcos }) => {
                 {mostrarAlerta && <Alert mensaje={mensajeAlerta} />}
                 </div>
               </div>
-            ) : (
-              <p>Turno de juego...</p>
             )}
           </div>
           <Tablero

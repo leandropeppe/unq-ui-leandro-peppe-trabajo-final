@@ -5,11 +5,12 @@ export const useJuego = () => {
 
   const [turnoJugador, setTurnoJugador] = useState(true);
   const [juegoFinalizado, setJuegoFinalizado] = useState(false);
-  const [contadorJugador, setContadorJugador] = useState(7);
-  const [contadorComputadora, setContadorComputadora] = useState(7);
+  const [contadorJugador, setContadorJugador] = useState(0);
+  const [contadorComputadora, setContadorComputadora] = useState(0);
   const [situacionDeJuego, setSituacionDeJuego] = useState('');
   const [partidasGanadasJ1,setPartidasGanadasJ1] = useState(0)
   const [partidasGanadasPC,setPartidasGanadasPC] = useState(0)
+  
 
   useEffect(() => {
     if (juegoFinalizado) {

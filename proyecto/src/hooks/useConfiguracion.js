@@ -15,14 +15,15 @@ export const useConfiguracion = () => {
 
   const [mostrarAlerta, setMostrarAlerta] = useState(false);
   const [mensajeAlerta, setMensajeAlerta] = useState('');
+  
 
   const reiniciarColocacionBarcos = () => {
     setTablero(Array(10).fill(null).map(() => Array(10).fill(null)));
     setBarcos({
-      portaaviones: { longitud: 5, disponible: true },
-      crucero: { longitud: 4, disponible: true },
-      submarino: { longitud: 3, disponible: true },
-      lancha: { longitud: 2, disponible: true },
+      portaaviones: { longitud: 5, disponible: true, posiciones: [] },
+    crucero: { longitud: 4, disponible: true, posiciones: [] },
+    submarino: { longitud: 3, disponible: true, posiciones: [] },
+    lancha: { longitud: 2, disponible: true, posiciones: [] },
     });
     setBarcoSeleccionado(null);
     setCeldasPrevias([]);
@@ -70,37 +71,66 @@ export const useConfiguracion = () => {
     if (barcoSeleccionado) {
       const tipoBarco = barcoSeleccionado;
       const longitud = barcos[tipoBarco].longitud;
-
-      if (verificarColocacionBarco(fila, columna, longitud, orientacionVertical,tablero)) {
+  
+      if (verificarColocacionBarco(fila, columna, longitud, orientacionVertical, tablero)) {
+        const nuevasPosiciones = [];
         const nuevoTablero = tablero.map((filaTablero, indexFila) => {
+          const filaActual = orientacionVertical ? fila + indexFila : fila;
+          const columnaActual = orientacionVertical ? columna : columna + indexFila;
+          nuevasPosiciones.push({ fila: filaActual, columna: columnaActual });
+  
           if (orientacionVertical && indexFila >= fila && indexFila < fila + longitud) {
-            return filaTablero.map((celda, indexColumna) => (indexColumna === columna ? 'B' : celda));
+            return filaTablero.map((celda, indexColumna) => {
+              const dentroDelBarco =
+                indexColumna === columna && indexFila >= fila && indexFila < fila + longitud;
+              if (dentroDelBarco) {
+                nuevasPosiciones.push({ fila: fila + indexFila, columna });
+                return 'B';
+              }
+              return celda;
+            });
           }
           if (!orientacionVertical && indexFila === fila) {
-            return filaTablero.map((celda, indexColumna) =>
-              indexColumna >= columna && indexColumna < columna + longitud ? 'B' : celda
-            );
+            return filaTablero.map((celda, indexColumna) => {
+              const dentroDelBarco =
+                indexColumna >= columna && indexColumna < columna + longitud;
+              if (dentroDelBarco) {
+                nuevasPosiciones.push({ fila, columna: columna + indexColumna });
+                return 'B';
+              }
+              return celda;
+            });
           }
           return filaTablero;
         });
+  
+        /*console.log(`Posiciones del barco ${tipoBarco}:`);
+        nuevasPosiciones.forEach((posicion) => {
+          console.log(`(${posicion.fila}, ${posicion.columna})`);
+        });*/
 
         setTablero(nuevoTablero);
         setBarcos((prevBarcos) => {
           const updatedBarcos = {
             ...prevBarcos,
-            [tipoBarco]: { ...prevBarcos[tipoBarco], disponible: false },
+            [tipoBarco]: {
+              ...prevBarcos[tipoBarco],
+              disponible: false,
+              posiciones: nuevasPosiciones,
+            },
           };
 
+          
+  
           if (todosLosBarcosColocados(updatedBarcos)) {
             setConfiguracionCompleta(true);
           }
-
+  
           return updatedBarcos;
         });
-
+  
         setBarcoSeleccionado(null);
         setCeldasPrevias([]);
-        
       } else {
         setMensajeAlerta('No se puede colocar un barco sobre otro. Elija otra posición.');
         setMostrarAlerta(true);
@@ -110,6 +140,9 @@ export const useConfiguracion = () => {
       }
     }
   };
+  
+  
+  
 
   const todosLosBarcosColocados = (barcos) => {
     return Object.values(barcos).every((barco) => !barco.disponible);
