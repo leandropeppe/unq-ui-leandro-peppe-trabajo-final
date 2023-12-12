@@ -4,7 +4,7 @@ import { useBarcos } from './useBarcos';
 
 export const useConfiguracion = () => {
   const { tablero, setTablero } = useTablero();
-  const { barcos, setBarcos } = useBarcos();
+  const { barcos, setBarcos,actualizarPosicionesBarco } = useBarcos();
 
   const [barcoSeleccionado, setBarcoSeleccionado] = useState(null);
   const [orientacionVertical, setOrientacionVertical] = useState(false);
@@ -21,9 +21,9 @@ export const useConfiguracion = () => {
     setTablero(Array(10).fill(null).map(() => Array(10).fill(null)));
     setBarcos({
       portaaviones: { longitud: 5, disponible: true, posiciones: [] },
-    crucero: { longitud: 4, disponible: true, posiciones: [] },
-    submarino: { longitud: 3, disponible: true, posiciones: [] },
-    lancha: { longitud: 2, disponible: true, posiciones: [] },
+      crucero: { longitud: 4, disponible: true, posiciones: [] },
+      submarino: { longitud: 3, disponible: true, posiciones: [] },
+      lancha: { longitud: 2, disponible: true, posiciones: [] },
     });
     setBarcoSeleccionado(null);
     setCeldasPrevias([]);
@@ -71,66 +71,40 @@ export const useConfiguracion = () => {
     if (barcoSeleccionado) {
       const tipoBarco = barcoSeleccionado;
       const longitud = barcos[tipoBarco].longitud;
-  
-      if (verificarColocacionBarco(fila, columna, longitud, orientacionVertical, tablero)) {
-        const nuevasPosiciones = [];
+
+      if (verificarColocacionBarco(fila, columna, longitud, orientacionVertical,tablero)) {
         const nuevoTablero = tablero.map((filaTablero, indexFila) => {
-          const filaActual = orientacionVertical ? fila + indexFila : fila;
-          const columnaActual = orientacionVertical ? columna : columna + indexFila;
-          nuevasPosiciones.push({ fila: filaActual, columna: columnaActual });
-  
           if (orientacionVertical && indexFila >= fila && indexFila < fila + longitud) {
-            return filaTablero.map((celda, indexColumna) => {
-              const dentroDelBarco =
-                indexColumna === columna && indexFila >= fila && indexFila < fila + longitud;
-              if (dentroDelBarco) {
-                nuevasPosiciones.push({ fila: fila + indexFila, columna });
-                return 'B';
-              }
-              return celda;
-            });
+            return filaTablero.map((celda, indexColumna) => (indexColumna === columna ? 'B' : celda));
           }
           if (!orientacionVertical && indexFila === fila) {
-            return filaTablero.map((celda, indexColumna) => {
-              const dentroDelBarco =
-                indexColumna >= columna && indexColumna < columna + longitud;
-              if (dentroDelBarco) {
-                nuevasPosiciones.push({ fila, columna: columna + indexColumna });
-                return 'B';
-              }
-              return celda;
-            });
+            return filaTablero.map((celda, indexColumna) =>
+              indexColumna >= columna && indexColumna < columna + longitud ? 'B' : celda
+            );
           }
+          //Actualizar posiciones en barco
+          actualizarPosicionesBarco(tipoBarco, fila, columna, longitud, orientacionVertical);
+          //console.log(barcos[tipoBarco].posiciones)
           return filaTablero;
         });
-  
-        /*console.log(`Posiciones del barco ${tipoBarco}:`);
-        nuevasPosiciones.forEach((posicion) => {
-          console.log(`(${posicion.fila}, ${posicion.columna})`);
-        });*/
 
         setTablero(nuevoTablero);
         setBarcos((prevBarcos) => {
           const updatedBarcos = {
             ...prevBarcos,
-            [tipoBarco]: {
-              ...prevBarcos[tipoBarco],
-              disponible: false,
-              posiciones: nuevasPosiciones,
-            },
+            [tipoBarco]: { ...prevBarcos[tipoBarco], disponible: false },
           };
 
-          
-  
           if (todosLosBarcosColocados(updatedBarcos)) {
             setConfiguracionCompleta(true);
           }
-  
+
           return updatedBarcos;
         });
-  
+
         setBarcoSeleccionado(null);
         setCeldasPrevias([]);
+        
       } else {
         setMensajeAlerta('No se puede colocar un barco sobre otro. Elija otra posición.');
         setMostrarAlerta(true);
@@ -140,9 +114,6 @@ export const useConfiguracion = () => {
       }
     }
   };
-  
-  
-  
 
   const todosLosBarcosColocados = (barcos) => {
     return Object.values(barcos).every((barco) => !barco.disponible);

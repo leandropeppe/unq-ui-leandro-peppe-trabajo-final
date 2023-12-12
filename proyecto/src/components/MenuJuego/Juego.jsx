@@ -8,22 +8,18 @@ import Turno from './Turno.jsx';
 import FinJuego from './FinJuego.jsx';
 import explosion from '../../sounds/explosion.mp3'
 import water from '../../sounds/water.mp3'
+import { useBarcos } from '../../hooks/useBarcos.js';
 
 const Juego = ({ tableroJugador, tableroComputadora, reiniciarConfig , menuPrincipal}) => {
   
-  const { turnoJugador,setTurnoJugador, juegoFinalizado,setJuegoFinalizado, situacionDeJuego, aumentarImpactos } = useJuego();
+  const { turnoJugador,setTurnoJugador, juegoFinalizado,setJuegoFinalizado, situacionDeJuego, aumentarImpactos,
+          tableroJuegoComputadora, setTableroJuegoComputadora,tableroJuegoJugador, setTableroJuegoJugador } = useJuego();
   
   const {realizarTiroComputadora} = useConfiguracion();
 
   const { reproducirSonido } = useAudio();
 
-  const [tableroJuegoComputadora, setTableroJuegoComputadora] = useState(() =>
-  Array(10).fill(null).map(() => Array(10).fill({ estado: null, tieneBarco: false }))
-  );
-  
-  const [tableroJuegoJugador, setTableroJuegoJugador] = useState(() =>
-  Array(10).fill(null).map(() => Array(10).fill(null))
-  );
+  const {barcos} = useBarcos();
   
 
   const handleAtaqueClick = (fila, columna, esTableroJugador) => {
@@ -38,6 +34,7 @@ const Juego = ({ tableroJugador, tableroComputadora, reiniciarConfig , menuPrinc
         return;
       }
 
+
       const tieneBarco = esTableroJugador
         ? tableroComputadora[fila][columna] === 'B'
         : tableroJugador[fila][columna] === 'B';
@@ -46,6 +43,8 @@ const Juego = ({ tableroJugador, tableroComputadora, reiniciarConfig , menuPrinc
         tablero[fila][columna] = 'impacto';
         reproducirSonido(explosion);
         aumentarImpactos();
+        
+        // Aca deberia verificar si la celda que se escogio en la ultima de un barco
       } else {
         tablero[fila][columna] = 'agua';
         reproducirSonido(water);
@@ -61,6 +60,13 @@ const Juego = ({ tableroJugador, tableroComputadora, reiniciarConfig , menuPrinc
     }
   };
 
+  /////////////////
+
+  
+
+
+  ////////////////
+  
 
   useEffect(() => {
     if (!turnoJugador) {
@@ -73,7 +79,7 @@ const Juego = ({ tableroJugador, tableroComputadora, reiniciarConfig , menuPrinc
       return () => clearTimeout(timeoutId);
     }
   }, [turnoJugador, realizarTiroComputadora, handleAtaqueClick]);
-
+  
 
   const handleRestart = () => {
     reiniciarConfig(false);

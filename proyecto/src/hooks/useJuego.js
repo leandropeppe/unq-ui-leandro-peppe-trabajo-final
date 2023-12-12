@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useBarcos } from './useBarcos';
 
 
 export const useJuego = () => {
@@ -11,6 +12,15 @@ export const useJuego = () => {
   const [partidasGanadasJ1,setPartidasGanadasJ1] = useState(0)
   const [partidasGanadasPC,setPartidasGanadasPC] = useState(0)
   
+  const {barcos} = useBarcos();
+
+  const [tableroJuegoComputadora, setTableroJuegoComputadora] = useState(() =>
+  Array(10).fill(null).map(() => Array(10).fill({ estado: null, tieneBarco: false }))
+  );
+  
+  const [tableroJuegoJugador, setTableroJuegoJugador] = useState(() =>
+  Array(10).fill(null).map(() => Array(10).fill(null))
+  );
 
   useEffect(() => {
     if (juegoFinalizado) {
@@ -22,29 +32,26 @@ export const useJuego = () => {
   const aumentarImpactos = () => {
     if (turnoJugador) {
       setContadorJugador((prevContador) => prevContador + 1);
-      console.log('Aumento al contador del jugador a ' + (contadorJugador + 1));
+      //console.log('Aumento al contador del jugador a ' + (contadorJugador + 1));
     } else {
       setContadorComputadora((prevContador) => prevContador + 1);
-      console.log('Aumento al contador de la computadora a ' + (contadorComputadora + 1));
+      //console.log('Aumento al contador de la computadora a ' + (contadorComputadora + 1));
     }
   
-    if (!juegoFinalizado) {
+    if (contadorComputadora >= 13 || contadorJugador >= 13) {
       if (contadorComputadora >= 13) {
         setPartidasGanadasPC((prevPartidas) => prevPartidas + 1);
         setSituacionDeJuego('Has Perdido..');
-        setJuegoFinalizado(true);
-      }
-  
-      if (contadorJugador >= 13) {
+      } else {
         setPartidasGanadasJ1((prevPartidas) => prevPartidas + 1);
         setSituacionDeJuego('Has Ganado!');
-        setJuegoFinalizado(true);
       }
+      setJuegoFinalizado(true);
     }
   };
 
-  
-  
+
+
 
   
 
@@ -55,6 +62,9 @@ export const useJuego = () => {
     setJuegoFinalizado,
     situacionDeJuego,
     aumentarImpactos,
-    partidasGanadasJ1,partidasGanadasPC ,setPartidasGanadasJ1,setPartidasGanadasPC
-};
+    partidasGanadasJ1,partidasGanadasPC ,setPartidasGanadasJ1,setPartidasGanadasPC,
+
+    tableroJuegoComputadora, setTableroJuegoComputadora , 
+    tableroJuegoJugador, setTableroJuegoJugador
+  };
 };

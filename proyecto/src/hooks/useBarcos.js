@@ -8,11 +8,39 @@ export const useBarcos = () => {
     lancha: { longitud: 2, disponible: true, posiciones: [] },
   });
 
+  const actualizarPosicionesBarco = (tipoBarco, fila, columna, longitud, orientacionVertical) => {
+    const nuevasPosiciones = [];
+  
+    for (let i = 0; i < longitud; i++) {
+      if (orientacionVertical) {
+        nuevasPosiciones.push([fila + i, columna]);
+      } else {
+        nuevasPosiciones.push([fila, columna + i]);
+      }
+    }
+  
+  
+    setBarcos((prevBarcos) => ({
+      ...prevBarcos,
+      [tipoBarco]: {
+        ...prevBarcos[tipoBarco],
+        posiciones: nuevasPosiciones,
+      },
+    }));
+  };
+  
+  
+  
+
+
+
   return {
     barcos,
     setBarcos,
+    actualizarPosicionesBarco,
   };
 };
+
 
 
 
