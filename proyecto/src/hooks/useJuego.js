@@ -9,10 +9,7 @@ export const useJuego = () => {
   const [contadorJugador, setContadorJugador] = useState(0);
   const [contadorComputadora, setContadorComputadora] = useState(0);
   const [situacionDeJuego, setSituacionDeJuego] = useState('');
-  const [partidasGanadasJ1,setPartidasGanadasJ1] = useState(0)
-  const [partidasGanadasPC,setPartidasGanadasPC] = useState(0)
   
-  const {barcos} = useBarcos();
 
   const [tableroJuegoComputadora, setTableroJuegoComputadora] = useState(() =>
   Array(10).fill(null).map(() => Array(10).fill({ estado: null, tieneBarco: false }))
@@ -22,12 +19,6 @@ export const useJuego = () => {
   Array(10).fill(null).map(() => Array(10).fill(null))
   );
 
-  useEffect(() => {
-    if (juegoFinalizado) {
-      console.log('Partidas ganadas J1:' + partidasGanadasJ1)
-      console.log('Partidas ganadas PC:' + partidasGanadasPC)
-    }
-  }, [juegoFinalizado, partidasGanadasJ1, partidasGanadasPC]);
 
   const aumentarImpactos = () => {
     if (turnoJugador) {
@@ -40,10 +31,8 @@ export const useJuego = () => {
   
     if (contadorComputadora >= 13 || contadorJugador >= 13) {
       if (contadorComputadora >= 13) {
-        setPartidasGanadasPC((prevPartidas) => prevPartidas + 1);
         setSituacionDeJuego('Has Perdido..');
       } else {
-        setPartidasGanadasJ1((prevPartidas) => prevPartidas + 1);
         setSituacionDeJuego('Has Ganado!');
       }
       setJuegoFinalizado(true);
@@ -62,7 +51,7 @@ export const useJuego = () => {
     setJuegoFinalizado,
     situacionDeJuego,
     aumentarImpactos,
-    partidasGanadasJ1,partidasGanadasPC ,setPartidasGanadasJ1,setPartidasGanadasPC,
+    
 
     tableroJuegoComputadora, setTableroJuegoComputadora , 
     tableroJuegoJugador, setTableroJuegoJugador
