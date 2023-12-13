@@ -3,6 +3,7 @@ import { useTablero } from './useTablero';
 import { useBarcos } from './useBarcos';
 
 export const useConfiguracion = () => {
+
   const { tablero, setTablero } = useTablero();
   const { barcos, setBarcos,actualizarPosicionesBarco } = useBarcos();
 
@@ -10,9 +11,6 @@ export const useConfiguracion = () => {
   const [orientacionVertical, setOrientacionVertical] = useState(false);
   const [celdasPrevias, setCeldasPrevias] = useState([]);
   const [configuracionCompleta, setConfiguracionCompleta] = useState(false);
-  
-  const [tirosComputadora, setTirosComputadora] = useState([]);
-
   const [mostrarAlerta, setMostrarAlerta] = useState(false);
   const [mensajeAlerta, setMensajeAlerta] = useState('');
   
@@ -141,22 +139,10 @@ export const useConfiguracion = () => {
     return true;
   };
 
-  const realizarTiroComputadora = () => {
-    const fila = Math.floor(Math.random() * 10);
-    const columna = Math.floor(Math.random() * 10);
-    const celdaYaAtacada = tirosComputadora.some(tiro => tiro.fila === fila && tiro.columna === columna);
   
-    if (!celdaYaAtacada) {
-      setTirosComputadora([...tirosComputadora, { fila, columna }]);
-      return { fila, columna };
-    } else {
-      return realizarTiroComputadora();
-    }
-  };
-
   return {
-    tablero, barcos, barcoSeleccionado, celdasPrevias, configuracionCompleta, orientacionVertical, tirosComputadora,mostrarAlerta,mensajeAlerta,
-    realizarTiroComputadora, verificarColocacionBarco, reiniciarColocacionBarcos, cambiarOrientacion, seleccionarBarco,
+    tablero, barcos, barcoSeleccionado, celdasPrevias, configuracionCompleta, orientacionVertical, mostrarAlerta,mensajeAlerta,
+    verificarColocacionBarco, reiniciarColocacionBarcos, cambiarOrientacion, seleccionarBarco,
     actualizarCeldasPrevias, colocarBarco,
   };
 };

@@ -13,10 +13,8 @@ import { useBarcos } from '../../hooks/useBarcos.js';
 const Juego = ({ tableroJugador, tableroComputadora, reiniciarConfig , menuPrincipal}) => {
   
   const { turnoJugador,setTurnoJugador, juegoFinalizado,setJuegoFinalizado, situacionDeJuego, aumentarImpactos,
-          tableroJuegoComputadora, setTableroJuegoComputadora,tableroJuegoJugador, setTableroJuegoJugador } = useJuego();
+          tableroJuegoComputadora, setTableroJuegoComputadora,tableroJuegoJugador, setTableroJuegoJugador,realizarTiroComputadora } = useJuego();
   
-  const {realizarTiroComputadora} = useConfiguracion();
-
   const { reproducirSonido } = useAudio();
 
   const {barcos} = useBarcos();

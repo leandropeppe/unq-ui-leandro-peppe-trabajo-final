@@ -9,7 +9,7 @@ export const useJuego = () => {
   const [contadorJugador, setContadorJugador] = useState(0);
   const [contadorComputadora, setContadorComputadora] = useState(0);
   const [situacionDeJuego, setSituacionDeJuego] = useState('');
-  
+  const [tirosComputadora, setTirosComputadora] = useState([]);
 
   const [tableroJuegoComputadora, setTableroJuegoComputadora] = useState(() =>
   Array(10).fill(null).map(() => Array(10).fill({ estado: null, tieneBarco: false }))
@@ -40,6 +40,18 @@ export const useJuego = () => {
   };
 
 
+  const realizarTiroComputadora = () => {
+    const fila = Math.floor(Math.random() * 10);
+    const columna = Math.floor(Math.random() * 10);
+    const celdaYaAtacada = tirosComputadora.some(tiro => tiro.fila === fila && tiro.columna === columna);
+  
+    if (!celdaYaAtacada) {
+      setTirosComputadora([...tirosComputadora, { fila, columna }]);
+      return { fila, columna };
+    } else {
+      return realizarTiroComputadora();
+    }
+  };
 
 
   
@@ -51,7 +63,7 @@ export const useJuego = () => {
     setJuegoFinalizado,
     situacionDeJuego,
     aumentarImpactos,
-    
+    realizarTiroComputadora,
 
     tableroJuegoComputadora, setTableroJuegoComputadora , 
     tableroJuegoJugador, setTableroJuegoJugador
