@@ -56,13 +56,6 @@ const Juego = ({ tableroJugador, tableroComputadora, reiniciarConfig , menuPrinc
       setTurnoJugador(!turnoJugador);
     }
   };
-
-  /////////////////
-
-  
-
-
-  ////////////////
   
 
   useEffect(() => {

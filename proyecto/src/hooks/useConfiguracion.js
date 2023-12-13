@@ -80,7 +80,6 @@ export const useConfiguracion = () => {
               indexColumna >= columna && indexColumna < columna + longitud ? 'B' : celda
             );
           }
-          //Actualizar posiciones en barco
           actualizarPosicionesBarco(tipoBarco, fila, columna, longitud, orientacionVertical);
           return filaTablero;
         });

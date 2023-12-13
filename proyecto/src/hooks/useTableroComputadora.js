@@ -14,7 +14,7 @@ export const useTableroComputadora = () => {
 
   const configurarTableroComputadoraAleatorio = () => {
     const nuevoTableroComputadora = Array(10).fill(null).map(() => Array(10).fill(null));
-    const nuevosBarcos = { ...barcos }; // Copiar el objeto barcos
+    const nuevosBarcos = { ...barcos };
 
     Object.keys(barcos).forEach((tipoBarco) => {
       const longitud = nuevosBarcos[tipoBarco].longitud;
