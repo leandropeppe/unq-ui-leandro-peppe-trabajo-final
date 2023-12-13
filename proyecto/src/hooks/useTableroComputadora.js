@@ -4,7 +4,7 @@ import { useConfiguracion } from './useConfiguracion';
 
 export const useTableroComputadora = () => {
 
-  const { barcos } = useBarcos();
+  const { barcos, setBarcos, actualizarPosicionesBarco} = useBarcos();
 
   const { verificarColocacionBarco, orientacionVertical } = useConfiguracion();
 
@@ -14,9 +14,10 @@ export const useTableroComputadora = () => {
 
   const configurarTableroComputadoraAleatorio = () => {
     const nuevoTableroComputadora = Array(10).fill(null).map(() => Array(10).fill(null));
+    const nuevosBarcos = { ...barcos }; // Copiar el objeto barcos
 
     Object.keys(barcos).forEach((tipoBarco) => {
-      const longitud = barcos[tipoBarco].longitud;
+      const longitud = nuevosBarcos[tipoBarco].longitud;
 
       let colocacionExitosa = false;
       while (!colocacionExitosa) {
@@ -40,12 +41,16 @@ export const useTableroComputadora = () => {
             orientacion,
             nuevoTableroComputadora
           );
+
+          actualizarPosicionesBarco(tipoBarco, fila, columna, longitud, orientacionVertical);
+
           colocacionExitosa = true;
         }
       }
     });
 
     setTableroComputadora(nuevoTableroComputadora);
+    setBarcos(nuevosBarcos); 
   };
 
   const colocarBarcoAleatorio = (fila, columna, longitud, orientacion, tablero) => {

@@ -10,7 +10,7 @@ export const useBarcos = () => {
 
   const actualizarPosicionesBarco = (tipoBarco, fila, columna, longitud, orientacionVertical) => {
     const nuevasPosiciones = [];
-  
+
     for (let i = 0; i < longitud; i++) {
       if (orientacionVertical) {
         nuevasPosiciones.push([fila + i, columna]);
@@ -18,8 +18,7 @@ export const useBarcos = () => {
         nuevasPosiciones.push([fila, columna + i]);
       }
     }
-  
-  
+
     setBarcos((prevBarcos) => ({
       ...prevBarcos,
       [tipoBarco]: {
@@ -28,11 +27,8 @@ export const useBarcos = () => {
       },
     }));
   };
-  
-  
-  
 
-
+  
 
   return {
     barcos,
@@ -40,4 +36,5 @@ export const useBarcos = () => {
     actualizarPosicionesBarco,
   };
 };
+
 

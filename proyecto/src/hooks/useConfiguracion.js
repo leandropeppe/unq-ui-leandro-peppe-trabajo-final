@@ -91,14 +91,13 @@ export const useConfiguracion = () => {
             ...prevBarcos,
             [tipoBarco]: { ...prevBarcos[tipoBarco], disponible: false },
           };
-
+          
           if (todosLosBarcosColocados(updatedBarcos)) {
             setConfiguracionCompleta(true);
           }
-
+          
           return updatedBarcos;
         });
-
         setBarcoSeleccionado(null);
         setCeldasPrevias([]);
         
