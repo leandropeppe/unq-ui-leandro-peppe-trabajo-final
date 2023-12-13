@@ -23,10 +23,8 @@ export const useJuego = () => {
   const aumentarImpactos = () => {
     if (turnoJugador) {
       setContadorJugador((prevContador) => prevContador + 1);
-      //console.log('Aumento al contador del jugador a ' + (contadorJugador + 1));
     } else {
       setContadorComputadora((prevContador) => prevContador + 1);
-      //console.log('Aumento al contador de la computadora a ' + (contadorComputadora + 1));
     }
   
     if (contadorComputadora >= 13 || contadorJugador >= 13) {

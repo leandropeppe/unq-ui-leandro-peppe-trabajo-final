@@ -82,7 +82,6 @@ export const useConfiguracion = () => {
           }
           //Actualizar posiciones en barco
           actualizarPosicionesBarco(tipoBarco, fila, columna, longitud, orientacionVertical);
-          //console.log(barcos[tipoBarco].posiciones)
           return filaTablero;
         });
 
