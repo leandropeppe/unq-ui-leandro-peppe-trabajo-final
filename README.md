@@ -18,7 +18,12 @@ Instalacion:
 4. **Instalar dependencias:**
     ```bash
     ..unq-ui-leandro-peppe-trabajo-final\proyecto>npm install
-5. Una vez instalado todo en la misma ubicacion colocar el comando "npm run dev" , y entrar a la siguiente ruta http://localhost:5173/
+5. Una vez instalado todo en la misma ubicacion colocar el comando "npm run dev":
+    ```bash
+    ..unq-ui-leandro-peppe-trabajo-final\proyecto>npm run dev
+     
+   y entrar a la siguiente ruta http://localhost:5173/
+   
 6. Proyecto instalado.. A Jugar !
 
 ## Requisitos del Sistema
