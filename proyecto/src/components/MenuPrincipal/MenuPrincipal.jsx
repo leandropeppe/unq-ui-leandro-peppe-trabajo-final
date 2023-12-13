@@ -22,30 +22,23 @@ const MenuPrincipal = ({ onSeleccion }) => {
   const comenzarJuego = () => {
     if (opcionSeleccionada === 'pc') {
       if (nombreJugador.trim() !== '') {
-        // Caso válido: Jugar contra la PC con nombre ingresado
         onSeleccion(opcionSeleccionada, nombreJugador);
       } else {
-        // Caso inválido: Falta el nombre
         setMensajeAlerta('Por favor, ingresa tu nombre.');
         setMostrarAlerta(true);
       }
     } else if (opcionSeleccionada === 'jugador2') {
       if (nombreJugador.trim() !== '' && nombreJugador2.trim() !== '') {
-        // Caso válido: Jugar contra Jugador 2 con nombres ingresados
-        //onSeleccion(opcionSeleccionada, { jugador1: nombreJugador, jugador2: nombreJugador2 });
         setMensajeAlerta('Lo siento ' + nombreJugador + ' y ' + nombreJugador2 + '...la version multijugador no está habilitada.');
         setMostrarAlerta(true);
       } else if (nombreJugador.trim() === '' && nombreJugador2.trim() === '') {
-        // Caso inválido: Faltan ambos nombres
         setMensajeAlerta('Por favor, ingresa tus nombres para jugar contra Jugador 2.');
         setMostrarAlerta(true);
       } else {
-        // Caso inválido: Falta al menos un nombre
         setMensajeAlerta('Por favor, ingresa ambos nombres para jugar contra Jugador 2.');
         setMostrarAlerta(true);
       }
     } else {
-      // Caso inválido: No se seleccionó una opción de juego
       setMensajeAlerta('Por favor, selecciona una opción de juego.');
       setMostrarAlerta(true);
     }

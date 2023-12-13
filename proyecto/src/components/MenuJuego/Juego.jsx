@@ -1,5 +1,4 @@
-import React, { useState,useEffect } from 'react';
-import { useConfiguracion } from '../../hooks/useConfiguracion.js';
+import React, { useEffect } from 'react';
 import { useJuego } from '../../hooks/useJuego.js';
 import { useAudio } from '../../hooks/useAudio.js';
 import './Juego.css';
