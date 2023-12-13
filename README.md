@@ -1,6 +1,6 @@
 ## Trabajo Final UI UNQ - Leandro Peppe
 
-El siguiente proyecto es una batalla naval hecha con React 
+El siguiente proyecto es una batalla naval hecha en React 
 
 Instalacion:
 
